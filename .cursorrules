@@ -1,0 +1,234 @@
+# MédiSync POC — Cursor Rules
+# Interactive Connected Pill Dispenser Prototype
+# Version: 1.0 | Stack: React + TypeScript + Vite + R3F + Zustand + Tailwind
+
+## PROJECT OVERVIEW
+MédiSync is a POC demonstrating a connected smart pill dispenser ecosystem
+with 4 user roles: Patient, Carer (Aidant), Pharmacist, Doctor.
+Goal: Show the product in action, not just describe it.
+
+---
+
+## TECH STACK (LOCKED)
+
+| Layer         | Technology                        | Version  |
+|---------------|-----------------------------------|----------|
+| Framework     | React + TypeScript                | 18 + 5   |
+| Build tool    | Vite                              | 5.x      |
+| 3D Engine     | React Three Fiber + Three.js      | 8.x      |
+| 3D Helpers    | @react-three/drei                 | 9.x      |
+| State         | Zustand                           | 4.x      |
+| Animations    | Framer Motion                     | 11.x     |
+| Styling       | Tailwind CSS                      | 3.x      |
+| Audio         | Howler.js                         | 2.x      |
+| Charts        | Recharts                          | 2.x      |
+
+DO NOT add other libraries without explicit user approval.
+DO NOT use Redux, MobX, or Context API for global state — use Zustand only.
+DO NOT use CSS Modules — use Tailwind utility classes only.
+
+---
+
+## DIRECTORY STRUCTURE
+
+```
+src/
+├── core/
+│   ├── types/
+│   │   └── index.ts          # All TypeScript interfaces and enums
+│   ├── store/
+│   │   ├── useAppStore.ts    # App navigation, active role, active scene
+│   │   └── usePillboxStore.ts # Pillbox simulation state
+│   ├── mocks/
+│   │   └── data.ts           # All mock data (patient, meds, history)
+│   └── services/
+│       └── simulationService.ts  # Business logic (take detection, alerts)
+├── scenes/
+│   ├── Hub.tsx               # Main landing scene (role selector)
+│   ├── PillDispenser3D.tsx   # React Three Fiber 3D scene
+│   └── shared/
+│       └── Particles.tsx     # Background particle effect
+├── components/
+│   ├── roles/
+│   │   ├── PatientView.tsx   # Patient scenario UI
+│   │   ├── CarerView.tsx     # Carer scenario UI
+│   │   ├── PharmacistView.tsx # Pharmacist scenario UI
+│   │   └── DoctorView.tsx    # Doctor scenario UI
+│   └── ui/
+│       ├── Panel.tsx         # Reusable glass-panel card
+│       ├── AlertBanner.tsx   # Notification / alert component
+│       ├── Timeline.tsx      # Medication history timeline
+│       ├── Header.tsx        # Top navigation bar
+│       ├── RoleCard.tsx      # Role selection card
+│       └── StatusBadge.tsx   # Compartment status badge
+├── hooks/
+│   ├── useSimulation.ts      # Simulation tick logic
+│   └── useAudio.ts           # Howler.js audio management
+├── App.tsx                   # Root component, scene routing
+├── main.tsx                  # Entry point
+└── index.css                 # Tailwind base + custom CSS vars
+```
+
+---
+
+## NAMING CONVENTIONS
+
+### Files
+- React components: PascalCase.tsx (e.g., PatientView.tsx)
+- Hooks: camelCase with "use" prefix (e.g., useSimulation.ts)
+- Stores: camelCase with "use" prefix (e.g., usePillboxStore.ts)
+- Types/Interfaces: PascalCase (e.g., Compartment, MedicationStatus)
+- Constants: UPPER_SNAKE_CASE (e.g., COMPARTMENT_SLOTS)
+- Mock data: camelCase (e.g., mockPatient, mockHistory)
+
+### Code Conventions
+- All interfaces prefixed with "I" ONLY for service/API contracts
+- Enums use PascalCase with string values (e.g., CompartmentState.TAKEN = 'taken')
+- Zustand stores export a single hook (e.g., export const useAppStore = ...)
+- Components must be typed with React.FC<Props> or typed function
+- No "any" types — use proper TypeScript typing throughout
+- Framer motion variants extracted to constants above component
+
+---
+
+## COMPONENT RULES
+
+### 3D Components (R3F)
+- All R3F mesh components must be in src/scenes/
+- Use useRef for Three.js object references
+- Use useFrame ONLY for continuous animations
+- Avoid heavy computations in useFrame — use useMemo for geometries
+- All 3D assets use JSX mesh primitives (no external .glb files in POC)
+
+### UI Components
+- All components must accept className?: string for extension
+- Use Framer Motion for all enter/exit animations
+- Minimum touch target: 44px (accessibility for elderly users)
+- All interactive elements must have hover AND focus styles
+- Use semantic HTML (button, nav, header, main, section)
+
+### State Updates
+- Never mutate Zustand state directly — use set() action functions
+- Business logic belongs in services/, not in components
+- Components only call store actions, never compute derived state inline
+
+---
+
+## DESIGN SYSTEM
+
+### Color Palette
+```css
+--navy-900: #060d1f    /* Background */
+--navy-800: #0a1628    /* Panel background */
+--navy-700: #0f1f3d    /* Elevated panel */
+--medical-blue: #00b4d8  /* Primary accent */
+--medical-teal: #48cae4  /* Secondary accent */
+--status-taken: #06d6a0  /* Green — medication taken */
+--status-upcoming: #ffd166  /* Yellow — upcoming dose */
+--status-missed: #ef476f    /* Red — missed dose / alert */
+--status-locked: #4a5568    /* Gray — compartment locked */
+--text-primary: #f1f5f9
+--text-secondary: #94a3b8
+```
+
+### Typography Scale
+- Display: text-4xl font-bold (scene titles)
+- Heading: text-2xl font-semibold (section titles)
+- Body: text-base font-normal
+- Label: text-sm font-medium
+- Micro: text-xs font-medium uppercase tracking-wide
+
+### Spacing
+- Use 4px base grid (Tailwind default)
+- Panels: p-6 (24px inner padding)
+- Cards: p-4 (16px inner padding)
+- Section gaps: gap-6
+
+---
+
+## BUSINESS LOGIC (SIMULATION MODEL)
+
+### Pillbox Compartment Model
+```
+Compartment {
+  id: string
+  slot: 'morning' | 'noon' | 'evening' | 'night'
+  day: 0-6 (0=today)
+  medications: Medication[]
+  scheduledTime: string (HH:MM)
+  state: CompartmentState
+  takenAt?: string
+  isLocked: boolean
+  stock: number
+  lowStockThreshold: number
+}
+```
+
+### Compartment States
+- LOCKED: Not yet time / future dose — compartment sealed
+- READY: Time window open — awaiting patient action
+- OPEN: Lid physically opened (simulated)
+- TAKEN: Medication confirmed taken
+- MISSED: Time window passed without action
+
+### Alert Triggers
+1. Dose time reached → compartment transitions LOCKED → READY
+2. 30 min past time with no take → READY → MISSED + alert
+3. Stock <= lowStockThreshold → stock alert to pharmacist
+4. Prescription end within 7 days → alert to doctor
+
+---
+
+## ROLE SCENARIOS (PLAYABLE)
+
+### Patient
+1. See active alerts (missed/upcoming doses)
+2. Click/tap compartment to open
+3. Confirm medication taken
+4. View daily + weekly history
+
+### Carer (Aidant)
+1. View patient's real-time pillbox status
+2. Read medication history log
+3. See alerts for missed doses
+4. Contact patient (simulated)
+
+### Pharmacist
+1. View stock levels per compartment
+2. Virtual pillbox refill interaction
+3. See upcoming prescription renewals
+4. Log refill in system
+
+### Doctor
+1. View patient adherence dashboard
+2. See prescription expiry alerts
+3. Review missed dose patterns
+4. Renew prescription (simulated)
+
+---
+
+## ITERATION RULES
+
+1. NEVER refactor working code between iterations without explicit request
+2. ALWAYS ask before changing the data model or store structure
+3. Keep mock data realistic and French (French names, French medication names)
+4. Components should be < 200 lines; split if longer
+5. New features go in new files — do not bloat existing ones
+6. Test each role scenario manually before marking as complete
+
+---
+
+## ARCHITECTURE ALIGNMENT WITH PRODUCTION
+
+This POC mirrors the production architecture:
+- src/core/services/ → Spring Boot REST API
+- Zustand store → Frontend state (React Native or Web)
+- Mock data → PostgreSQL entities
+- Simulation ticks → MQTT events from Arduino pillbox hardware
+- Role-based UI → Real authentication + RBAC system
+
+When iterating toward MVP:
+1. Replace mock data with real API calls
+2. Replace simulation ticks with WebSocket/MQTT listeners
+3. Replace Zustand mocks with React Query + API layer
+4. Add authentication (JWT or OAuth2)

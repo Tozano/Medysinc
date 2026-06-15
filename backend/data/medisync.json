@@ -1,0 +1,814 @@
+{
+  "doctors": {
+    "doctor-1": {
+      "id": "doctor-1",
+      "firstName": "Marie",
+      "lastName": "Leclerc",
+      "specialty": "Médecine générale",
+      "licenseNumber": "RPPS-10012345678"
+    }
+  },
+  "pharmacists": {
+    "pharmacy-1": {
+      "id": "pharmacy-1",
+      "firstName": "Thomas",
+      "lastName": "Bernard",
+      "pharmacyName": "Pharmacie Centrale",
+      "address": "12 Rue de la République, 69001 Lyon"
+    }
+  },
+  "carers": {
+    "carer-1": {
+      "id": "carer-1",
+      "firstName": "Marie",
+      "lastName": "Dupont",
+      "relation": "Fille",
+      "phone": "06 12 34 56 78"
+    }
+  },
+  "patients": {
+    "patient-1": {
+      "id": "patient-1",
+      "firstName": "Jean",
+      "lastName": "Dupont",
+      "age": 72,
+      "dateOfBirth": "1952-03-15",
+      "conditions": [
+        "Diabète de type 2",
+        "Hypertension artérielle",
+        "Hypercholestérolémie"
+      ],
+      "doctorId": "doctor-1",
+      "pharmacyId": "pharmacy-1",
+      "carerId": "carer-1"
+    }
+  },
+  "medications": {
+    "med-1": {
+      "id": "med-1",
+      "name": "Metformine",
+      "dosage": "500 mg",
+      "form": "comprimé",
+      "color": "#ffffff"
+    },
+    "med-2": {
+      "id": "med-2",
+      "name": "Lisinopril",
+      "dosage": "10 mg",
+      "form": "comprimé",
+      "color": "#ffd6a5"
+    },
+    "med-3": {
+      "id": "med-3",
+      "name": "Atorvastatine",
+      "dosage": "20 mg",
+      "form": "comprimé",
+      "color": "#caffbf"
+    },
+    "med-4": {
+      "id": "med-4",
+      "name": "Bisoprolol",
+      "dosage": "5 mg",
+      "form": "comprimé",
+      "color": "#fdffb6"
+    },
+    "med-5": {
+      "id": "med-5",
+      "name": "Vitamine D3",
+      "dosage": "1000 UI",
+      "form": "gélule",
+      "color": "#ffadad"
+    }
+  },
+  "devices": {
+    "device-001": {
+      "id": "device-001",
+      "serialNumber": "MS-2026-00142",
+      "patientId": "patient-1",
+      "batteryLevel": 78,
+      "wifiConnected": true,
+      "lastSync": "2026-04-02T10:11:43.389Z",
+      "firmwareVersion": "2.4.1",
+      "alertVolume": 75,
+      "alertLightEnabled": true
+    }
+  },
+  "compartments": {
+    "comp-morning": {
+      "id": "comp-morning",
+      "deviceId": "device-001",
+      "slot": "morning",
+      "scheduledTime": "08:00",
+      "state": "locked",
+      "takenAt": null,
+      "isLocked": true,
+      "stock": 14,
+      "lowStockThreshold": 7
+    },
+    "comp-noon": {
+      "id": "comp-noon",
+      "deviceId": "device-001",
+      "slot": "noon",
+      "scheduledTime": "12:00",
+      "state": "missed",
+      "takenAt": null,
+      "isLocked": true,
+      "stock": 3,
+      "lowStockThreshold": 7
+    },
+    "comp-evening": {
+      "id": "comp-evening",
+      "deviceId": "device-001",
+      "slot": "evening",
+      "scheduledTime": "18:00",
+      "state": "missed",
+      "takenAt": null,
+      "isLocked": true,
+      "stock": 21,
+      "lowStockThreshold": 7
+    },
+    "comp-night": {
+      "id": "comp-night",
+      "deviceId": "device-001",
+      "slot": "night",
+      "scheduledTime": "21:00",
+      "state": "missed",
+      "takenAt": null,
+      "isLocked": true,
+      "stock": 28,
+      "lowStockThreshold": 7
+    }
+  },
+  "compartmentMedications": [
+    {
+      "compartmentId": "comp-morning",
+      "medicationId": "med-1",
+      "quantity": 1
+    },
+    {
+      "compartmentId": "comp-morning",
+      "medicationId": "med-2",
+      "quantity": 1
+    },
+    {
+      "compartmentId": "comp-noon",
+      "medicationId": "med-1",
+      "quantity": 1
+    },
+    {
+      "compartmentId": "comp-evening",
+      "medicationId": "med-2",
+      "quantity": 1
+    },
+    {
+      "compartmentId": "comp-evening",
+      "medicationId": "med-3",
+      "quantity": 1
+    },
+    {
+      "compartmentId": "comp-evening",
+      "medicationId": "med-4",
+      "quantity": 1
+    },
+    {
+      "compartmentId": "comp-night",
+      "medicationId": "med-5",
+      "quantity": 1
+    }
+  ],
+  "prescriptions": {
+    "rx-1": {
+      "id": "rx-1",
+      "patientId": "patient-1",
+      "doctorId": "doctor-1",
+      "medicationId": "med-1",
+      "startDate": "2026-01-01",
+      "endDate": "2026-03-18",
+      "frequency": [
+        "morning",
+        "noon"
+      ],
+      "renewalRequired": true
+    },
+    "rx-2": {
+      "id": "rx-2",
+      "patientId": "patient-1",
+      "doctorId": "doctor-1",
+      "medicationId": "med-2",
+      "startDate": "2026-01-01",
+      "endDate": "2026-06-01",
+      "frequency": [
+        "morning",
+        "evening"
+      ],
+      "renewalRequired": false
+    },
+    "rx-3": {
+      "id": "rx-3",
+      "patientId": "patient-1",
+      "doctorId": "doctor-1",
+      "medicationId": "med-3",
+      "startDate": "2026-01-01",
+      "endDate": "2026-04-15",
+      "frequency": [
+        "evening"
+      ],
+      "renewalRequired": false
+    }
+  },
+  "history": {
+    "hist-6-morning": {
+      "id": "hist-6-morning",
+      "patientId": "patient-1",
+      "compartmentId": "comp-morning",
+      "slot": "morning",
+      "date": "2026-03-05",
+      "scheduledTime": "08:00",
+      "takenAt": null,
+      "state": "missed"
+    },
+    "hist-6-noon": {
+      "id": "hist-6-noon",
+      "patientId": "patient-1",
+      "compartmentId": "comp-noon",
+      "slot": "noon",
+      "date": "2026-03-05",
+      "scheduledTime": "12:00",
+      "takenAt": "2026-03-05T11:19:00.000Z",
+      "state": "taken"
+    },
+    "hist-6-evening": {
+      "id": "hist-6-evening",
+      "patientId": "patient-1",
+      "compartmentId": "comp-evening",
+      "slot": "evening",
+      "date": "2026-03-05",
+      "scheduledTime": "18:00",
+      "takenAt": "2026-03-05T17:17:00.000Z",
+      "state": "taken"
+    },
+    "hist-6-night": {
+      "id": "hist-6-night",
+      "patientId": "patient-1",
+      "compartmentId": "comp-night",
+      "slot": "night",
+      "date": "2026-03-05",
+      "scheduledTime": "21:00",
+      "takenAt": "2026-03-05T20:08:00.000Z",
+      "state": "taken"
+    },
+    "hist-5-morning": {
+      "id": "hist-5-morning",
+      "patientId": "patient-1",
+      "compartmentId": "comp-morning",
+      "slot": "morning",
+      "date": "2026-03-06",
+      "scheduledTime": "08:00",
+      "takenAt": "2026-03-06T07:02:00.000Z",
+      "state": "taken"
+    },
+    "hist-5-noon": {
+      "id": "hist-5-noon",
+      "patientId": "patient-1",
+      "compartmentId": "comp-noon",
+      "slot": "noon",
+      "date": "2026-03-06",
+      "scheduledTime": "12:00",
+      "takenAt": null,
+      "state": "missed"
+    },
+    "hist-5-evening": {
+      "id": "hist-5-evening",
+      "patientId": "patient-1",
+      "compartmentId": "comp-evening",
+      "slot": "evening",
+      "date": "2026-03-06",
+      "scheduledTime": "18:00",
+      "takenAt": "2026-03-06T17:18:00.000Z",
+      "state": "taken"
+    },
+    "hist-5-night": {
+      "id": "hist-5-night",
+      "patientId": "patient-1",
+      "compartmentId": "comp-night",
+      "slot": "night",
+      "date": "2026-03-06",
+      "scheduledTime": "21:00",
+      "takenAt": "2026-03-06T20:16:00.000Z",
+      "state": "taken"
+    },
+    "hist-4-morning": {
+      "id": "hist-4-morning",
+      "patientId": "patient-1",
+      "compartmentId": "comp-morning",
+      "slot": "morning",
+      "date": "2026-03-07",
+      "scheduledTime": "08:00",
+      "takenAt": "2026-03-07T07:17:00.000Z",
+      "state": "taken"
+    },
+    "hist-4-noon": {
+      "id": "hist-4-noon",
+      "patientId": "patient-1",
+      "compartmentId": "comp-noon",
+      "slot": "noon",
+      "date": "2026-03-07",
+      "scheduledTime": "12:00",
+      "takenAt": "2026-03-07T11:02:00.000Z",
+      "state": "taken"
+    },
+    "hist-4-evening": {
+      "id": "hist-4-evening",
+      "patientId": "patient-1",
+      "compartmentId": "comp-evening",
+      "slot": "evening",
+      "date": "2026-03-07",
+      "scheduledTime": "18:00",
+      "takenAt": null,
+      "state": "missed"
+    },
+    "hist-4-night": {
+      "id": "hist-4-night",
+      "patientId": "patient-1",
+      "compartmentId": "comp-night",
+      "slot": "night",
+      "date": "2026-03-07",
+      "scheduledTime": "21:00",
+      "takenAt": "2026-03-07T20:15:00.000Z",
+      "state": "taken"
+    },
+    "hist-3-morning": {
+      "id": "hist-3-morning",
+      "patientId": "patient-1",
+      "compartmentId": "comp-morning",
+      "slot": "morning",
+      "date": "2026-03-08",
+      "scheduledTime": "08:00",
+      "takenAt": "2026-03-08T07:13:00.000Z",
+      "state": "taken"
+    },
+    "hist-3-noon": {
+      "id": "hist-3-noon",
+      "patientId": "patient-1",
+      "compartmentId": "comp-noon",
+      "slot": "noon",
+      "date": "2026-03-08",
+      "scheduledTime": "12:00",
+      "takenAt": "2026-03-08T11:12:00.000Z",
+      "state": "taken"
+    },
+    "hist-3-evening": {
+      "id": "hist-3-evening",
+      "patientId": "patient-1",
+      "compartmentId": "comp-evening",
+      "slot": "evening",
+      "date": "2026-03-08",
+      "scheduledTime": "18:00",
+      "takenAt": "2026-03-08T17:14:00.000Z",
+      "state": "taken"
+    },
+    "hist-3-night": {
+      "id": "hist-3-night",
+      "patientId": "patient-1",
+      "compartmentId": "comp-night",
+      "slot": "night",
+      "date": "2026-03-08",
+      "scheduledTime": "21:00",
+      "takenAt": null,
+      "state": "missed"
+    },
+    "hist-2-morning": {
+      "id": "hist-2-morning",
+      "patientId": "patient-1",
+      "compartmentId": "comp-morning",
+      "slot": "morning",
+      "date": "2026-03-09",
+      "scheduledTime": "08:00",
+      "takenAt": "2026-03-09T07:19:00.000Z",
+      "state": "taken"
+    },
+    "hist-2-noon": {
+      "id": "hist-2-noon",
+      "patientId": "patient-1",
+      "compartmentId": "comp-noon",
+      "slot": "noon",
+      "date": "2026-03-09",
+      "scheduledTime": "12:00",
+      "takenAt": "2026-03-09T11:06:00.000Z",
+      "state": "taken"
+    },
+    "hist-2-evening": {
+      "id": "hist-2-evening",
+      "patientId": "patient-1",
+      "compartmentId": "comp-evening",
+      "slot": "evening",
+      "date": "2026-03-09",
+      "scheduledTime": "18:00",
+      "takenAt": "2026-03-09T17:18:00.000Z",
+      "state": "taken"
+    },
+    "hist-2-night": {
+      "id": "hist-2-night",
+      "patientId": "patient-1",
+      "compartmentId": "comp-night",
+      "slot": "night",
+      "date": "2026-03-09",
+      "scheduledTime": "21:00",
+      "takenAt": "2026-03-09T20:02:00.000Z",
+      "state": "taken"
+    },
+    "hist-1-morning": {
+      "id": "hist-1-morning",
+      "patientId": "patient-1",
+      "compartmentId": "comp-morning",
+      "slot": "morning",
+      "date": "2026-03-10",
+      "scheduledTime": "08:00",
+      "takenAt": "2026-03-10T07:10:00.000Z",
+      "state": "taken"
+    },
+    "hist-1-noon": {
+      "id": "hist-1-noon",
+      "patientId": "patient-1",
+      "compartmentId": "comp-noon",
+      "slot": "noon",
+      "date": "2026-03-10",
+      "scheduledTime": "12:00",
+      "takenAt": "2026-03-10T11:01:00.000Z",
+      "state": "taken"
+    },
+    "hist-1-evening": {
+      "id": "hist-1-evening",
+      "patientId": "patient-1",
+      "compartmentId": "comp-evening",
+      "slot": "evening",
+      "date": "2026-03-10",
+      "scheduledTime": "18:00",
+      "takenAt": "2026-03-10T17:13:00.000Z",
+      "state": "taken"
+    },
+    "hist-1-night": {
+      "id": "hist-1-night",
+      "patientId": "patient-1",
+      "compartmentId": "comp-night",
+      "slot": "night",
+      "date": "2026-03-10",
+      "scheduledTime": "21:00",
+      "takenAt": "2026-03-10T20:19:00.000Z",
+      "state": "taken"
+    },
+    "hist-1773249171614-noon": {
+      "id": "hist-1773249171614-noon",
+      "patientId": "patient-1",
+      "compartmentId": "comp-noon",
+      "slot": "noon",
+      "date": "2026-03-11",
+      "scheduledTime": "12:00",
+      "takenAt": null,
+      "state": "missed"
+    },
+    "hist-1773254859696-evening": {
+      "id": "hist-1773254859696-evening",
+      "patientId": "patient-1",
+      "compartmentId": "comp-evening",
+      "slot": "evening",
+      "date": "2026-03-11",
+      "scheduledTime": "18:00",
+      "takenAt": null,
+      "state": "missed"
+    },
+    "hist-1773348384046-night": {
+      "id": "hist-1773348384046-night",
+      "patientId": "patient-1",
+      "compartmentId": "comp-night",
+      "slot": "night",
+      "date": "2026-03-12",
+      "scheduledTime": "21:00",
+      "takenAt": null,
+      "state": "missed"
+    }
+  },
+  "alerts": {
+    "alert-stock-1": {
+      "id": "alert-stock-1",
+      "type": "low_stock",
+      "severity": "critical",
+      "title": "Stock critique — Metformine midi",
+      "message": "Compartiment midi : 3 comprimés restants. Rechargement nécessaire sous 3 jours.",
+      "timestamp": "2026-03-11T10:06:56.843Z",
+      "forRoles": [
+        "pharmacist",
+        "carer"
+      ],
+      "patientId": "patient-1",
+      "compartmentId": "comp-noon",
+      "read": false,
+      "actionLabel": "Recharger le pilulier"
+    },
+    "alert-rx-1": {
+      "id": "alert-rx-1",
+      "type": "prescription_expiry",
+      "severity": "warning",
+      "title": "Ordonnance proche de l'expiration",
+      "message": "Ordonnance Metformine 500mg expire dans 7 jours. Renouvellement requis.",
+      "timestamp": "2026-03-11T09:36:56.843Z",
+      "forRoles": [
+        "doctor",
+        "patient"
+      ],
+      "patientId": "patient-1",
+      "compartmentId": null,
+      "read": false,
+      "actionLabel": "Renouveler l'ordonnance"
+    },
+    "alert-1773225416848-ucsg": {
+      "id": "alert-1773225416848-ucsg",
+      "type": "dose_ready",
+      "severity": "info",
+      "title": "Traitement midi disponible",
+      "message": "Votre traitement de midi est prêt à 12:00.",
+      "timestamp": "2026-03-11T10:36:56.848Z",
+      "forRoles": [
+        "patient"
+      ],
+      "patientId": "patient-1",
+      "compartmentId": "comp-noon",
+      "read": false,
+      "actionLabel": null
+    },
+    "alert-1773227217253-mcjw": {
+      "id": "alert-1773227217253-mcjw",
+      "type": "low_stock",
+      "severity": "warning",
+      "title": "Stock faible — midi",
+      "message": "Compartiment midi : 3 unités restantes.",
+      "timestamp": "2026-03-11T11:06:57.253Z",
+      "forRoles": [
+        "pharmacist",
+        "carer"
+      ],
+      "patientId": "patient-1",
+      "compartmentId": "comp-noon",
+      "read": false,
+      "actionLabel": null
+    },
+    "alert-1773249171616-rw31": {
+      "id": "alert-1773249171616-rw31",
+      "type": "missed_dose",
+      "severity": "warning",
+      "title": "Prise oubliée",
+      "message": "Traitement du midi (12:00) non effectué.",
+      "timestamp": "2026-03-11T17:12:51.616Z",
+      "forRoles": [
+        "patient",
+        "carer",
+        "doctor"
+      ],
+      "patientId": "patient-1",
+      "compartmentId": "comp-noon",
+      "read": false,
+      "actionLabel": null
+    },
+    "alert-1773249171619-ua1k": {
+      "id": "alert-1773249171619-ua1k",
+      "type": "dose_ready",
+      "severity": "info",
+      "title": "Traitement soir disponible",
+      "message": "Votre traitement de soir est prêt à 18:00.",
+      "timestamp": "2026-03-11T17:12:51.619Z",
+      "forRoles": [
+        "patient"
+      ],
+      "patientId": "patient-1",
+      "compartmentId": "comp-evening",
+      "read": false,
+      "actionLabel": null
+    },
+    "alert-1773249171620-y6be": {
+      "id": "alert-1773249171620-y6be",
+      "type": "low_stock",
+      "severity": "warning",
+      "title": "Stock faible — midi",
+      "message": "Compartiment midi : 3 unités restantes.",
+      "timestamp": "2026-03-11T17:12:51.620Z",
+      "forRoles": [
+        "pharmacist",
+        "carer"
+      ],
+      "patientId": "patient-1",
+      "compartmentId": "comp-noon",
+      "read": false,
+      "actionLabel": null
+    },
+    "alert-1773254859724-lnca": {
+      "id": "alert-1773254859724-lnca",
+      "type": "missed_dose",
+      "severity": "warning",
+      "title": "Prise oubliée",
+      "message": "Traitement du soir (18:00) non effectué.",
+      "timestamp": "2026-03-11T18:47:39.724Z",
+      "forRoles": [
+        "patient",
+        "carer",
+        "doctor"
+      ],
+      "patientId": "patient-1",
+      "compartmentId": "comp-evening",
+      "read": false,
+      "actionLabel": null
+    },
+    "alert-1773254859741-3ldd": {
+      "id": "alert-1773254859741-3ldd",
+      "type": "low_stock",
+      "severity": "warning",
+      "title": "Stock faible — midi",
+      "message": "Compartiment midi : 3 unités restantes.",
+      "timestamp": "2026-03-11T18:47:39.741Z",
+      "forRoles": [
+        "pharmacist",
+        "carer"
+      ],
+      "patientId": "patient-1",
+      "compartmentId": "comp-noon",
+      "read": false,
+      "actionLabel": null
+    },
+    "alert-1773275467098-4jfb": {
+      "id": "alert-1773275467098-4jfb",
+      "type": "low_stock",
+      "severity": "warning",
+      "title": "Stock faible — midi",
+      "message": "Compartiment midi : 3 unités restantes.",
+      "timestamp": "2026-03-12T00:31:07.098Z",
+      "forRoles": [
+        "pharmacist",
+        "carer"
+      ],
+      "patientId": "patient-1",
+      "compartmentId": "comp-noon",
+      "read": false,
+      "actionLabel": null
+    },
+    "alert-1773281796361-o1bq": {
+      "id": "alert-1773281796361-o1bq",
+      "type": "low_stock",
+      "severity": "warning",
+      "title": "Stock faible — midi",
+      "message": "Compartiment midi : 3 unités restantes.",
+      "timestamp": "2026-03-12T02:16:36.361Z",
+      "forRoles": [
+        "pharmacist",
+        "carer"
+      ],
+      "patientId": "patient-1",
+      "compartmentId": "comp-noon",
+      "read": false,
+      "actionLabel": null
+    },
+    "alert-1773346762836-v904": {
+      "id": "alert-1773346762836-v904",
+      "type": "dose_ready",
+      "severity": "info",
+      "title": "Traitement nuit disponible",
+      "message": "Votre traitement de nuit est prêt à 21:00.",
+      "timestamp": "2026-03-12T20:19:22.836Z",
+      "forRoles": [
+        "patient"
+      ],
+      "patientId": "patient-1",
+      "compartmentId": "comp-night",
+      "read": false,
+      "actionLabel": null
+    },
+    "alert-1773346762840-fbr5": {
+      "id": "alert-1773346762840-fbr5",
+      "type": "low_stock",
+      "severity": "warning",
+      "title": "Stock faible — midi",
+      "message": "Compartiment midi : 3 unités restantes.",
+      "timestamp": "2026-03-12T20:19:22.840Z",
+      "forRoles": [
+        "pharmacist",
+        "carer"
+      ],
+      "patientId": "patient-1",
+      "compartmentId": "comp-noon",
+      "read": false,
+      "actionLabel": null
+    },
+    "alert-1773348384049-ru1q": {
+      "id": "alert-1773348384049-ru1q",
+      "type": "missed_dose",
+      "severity": "warning",
+      "title": "Prise oubliée",
+      "message": "Traitement du nuit (21:00) non effectué.",
+      "timestamp": "2026-03-12T20:46:24.049Z",
+      "forRoles": [
+        "patient",
+        "carer",
+        "doctor"
+      ],
+      "patientId": "patient-1",
+      "compartmentId": "comp-night",
+      "read": false,
+      "actionLabel": null
+    },
+    "alert-1773350364540-xnox": {
+      "id": "alert-1773350364540-xnox",
+      "type": "low_stock",
+      "severity": "warning",
+      "title": "Stock faible — midi",
+      "message": "Compartiment midi : 3 unités restantes.",
+      "timestamp": "2026-03-12T21:19:24.540Z",
+      "forRoles": [
+        "pharmacist",
+        "carer"
+      ],
+      "patientId": "patient-1",
+      "compartmentId": "comp-noon",
+      "read": false,
+      "actionLabel": null
+    },
+    "alert-1773353965577-xkd9": {
+      "id": "alert-1773353965577-xkd9",
+      "type": "low_stock",
+      "severity": "warning",
+      "title": "Stock faible — midi",
+      "message": "Compartiment midi : 3 unités restantes.",
+      "timestamp": "2026-03-12T22:19:25.577Z",
+      "forRoles": [
+        "pharmacist",
+        "carer"
+      ],
+      "patientId": "patient-1",
+      "compartmentId": "comp-noon",
+      "read": false,
+      "actionLabel": null
+    },
+    "alert-1775112890643-kc7y": {
+      "id": "alert-1775112890643-kc7y",
+      "type": "low_stock",
+      "severity": "warning",
+      "title": "Stock faible — midi",
+      "message": "Compartiment midi : 3 unités restantes.",
+      "timestamp": "2026-04-02T06:54:50.643Z",
+      "forRoles": [
+        "pharmacist",
+        "carer"
+      ],
+      "patientId": "patient-1",
+      "compartmentId": "comp-noon",
+      "read": false,
+      "actionLabel": null
+    },
+    "alert-1775116491121-i40v": {
+      "id": "alert-1775116491121-i40v",
+      "type": "low_stock",
+      "severity": "warning",
+      "title": "Stock faible — midi",
+      "message": "Compartiment midi : 3 unités restantes.",
+      "timestamp": "2026-04-02T07:54:51.121Z",
+      "forRoles": [
+        "pharmacist",
+        "carer"
+      ],
+      "patientId": "patient-1",
+      "compartmentId": "comp-noon",
+      "read": false,
+      "actionLabel": null
+    },
+    "alert-1775120091999-shr3": {
+      "id": "alert-1775120091999-shr3",
+      "type": "low_stock",
+      "severity": "warning",
+      "title": "Stock faible — midi",
+      "message": "Compartiment midi : 3 unités restantes.",
+      "timestamp": "2026-04-02T08:54:52.000Z",
+      "forRoles": [
+        "pharmacist",
+        "carer"
+      ],
+      "patientId": "patient-1",
+      "compartmentId": "comp-noon",
+      "read": false,
+      "actionLabel": null
+    },
+    "alert-1775123713134-1tne": {
+      "id": "alert-1775123713134-1tne",
+      "type": "low_stock",
+      "severity": "warning",
+      "title": "Stock faible — midi",
+      "message": "Compartiment midi : 3 unités restantes.",
+      "timestamp": "2026-04-02T09:55:13.134Z",
+      "forRoles": [
+        "pharmacist",
+        "carer"
+      ],
+      "patientId": "patient-1",
+      "compartmentId": "comp-noon",
+      "read": false,
+      "actionLabel": null
+    }
+  },
+  "refillLogs": {}
+}

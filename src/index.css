@@ -1,0 +1,128 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── CSS Custom Properties ─────────────────────────────── */
+:root {
+  --navy-900: #060d1f;
+  --navy-800: #0a1628;
+  --navy-700: #0f1f3d;
+  --medical-blue: #00b4d8;
+  --medical-teal: #48cae4;
+  --status-taken: #06d6a0;
+  --status-missed: #ef476f;
+  --status-upcoming: #ffd166;
+  --font-sans: 'Inter', system-ui, sans-serif;
+}
+
+/* ── Base Reset ────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--navy-900);
+  color: #f1f5f9;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+/* ── Scrollbar ──────────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 99px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* ── Selection ──────────────────────────────────────────── */
+::selection {
+  background: rgba(0, 180, 216, 0.3);
+  color: #ffffff;
+}
+
+/* ── Focus Ring ─────────────────────────────────────────── */
+:focus-visible {
+  outline: 2px solid var(--medical-blue);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+
+/* ── Canvas full height ──────────────────────────────────── */
+canvas {
+  display: block;
+}
+
+/* ── Tailwind custom utilities ───────────────────────────── */
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .bg-noise {
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    opacity: 0.03;
+  }
+
+  .animate-glow {
+    animation: glow 2s ease-in-out infinite;
+  }
+}
+
+/* ── Recharts override ───────────────────────────────────── */
+.recharts-cartesian-axis-tick-value {
+  font-family: var(--font-sans);
+}
+
+/* ── Range input ─────────────────────────────────────────── */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--medical-blue);
+  cursor: pointer;
+  border: 2px solid rgba(255,255,255,0.2);
+  box-shadow: 0 0 8px rgba(0, 180, 216, 0.4);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--medical-blue);
+  cursor: pointer;
+  border: 2px solid rgba(255,255,255,0.2);
+}
+
+/* ── Three.js canvas cursor ──────────────────────────────── */
+canvas {
+  cursor: grab;
+}
+
+canvas:active {
+  cursor: grabbing;
+}
